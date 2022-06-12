@@ -19,7 +19,7 @@ const useEmployees = () => {
     try {
       const response = await axios.get(url)
       console.log(response)
-      return response.data ? response.data : false
+      return response.data.employees ? response.data.employees.data : false
     } catch (error) {
       console.log(error)
       return false
