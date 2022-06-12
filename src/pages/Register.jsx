@@ -1,6 +1,8 @@
 import { useState } from 'react';
 // hooks
 import useEmployees from '../hooks/useEmployees'
+// outer
+import { useNavigate } from 'react-router-dom';
 
 
 const INITIAL_STATE = {
@@ -32,7 +34,9 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventdefault()
-    postEmployee(employess)
+    const response = postEmployee(employess)
+    let navigate = useNavigate();
+    response && navigate('/')
   }
 
   return (
