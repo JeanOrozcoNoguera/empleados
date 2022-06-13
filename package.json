@@ -13,7 +13,8 @@
     "flowbite-react": "^0.0.25",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "react-router-dom": "^6.3.0"
+    "react-router-dom": "^6.3.0",
+    "sweetalert2": "^11.4.17"
   },
   "devDependencies": {
     "@types/react": "^18.0.0",

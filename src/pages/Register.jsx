@@ -1,8 +1,6 @@
 import { useState } from 'react';
 // hooks
 import useEmployees from '../hooks/useEmployees'
-// outer
-import { useNavigate } from 'react-router-dom';
 
 
 const INITIAL_STATE = {
@@ -19,24 +17,22 @@ const INITIAL_STATE = {
 
 const Register = () => {
 
-  const [employess, setEmployee] = useState(INITIAL_STATE)
+  const [employee, setEmployee] = useState(INITIAL_STATE)
 
   const { postEmployee } = useEmployees()
 
   const handleChange = (e) => {
     setEmployee(
       {
-        ...employess,
+        ...employee,
         [e.target.name]: e.target.value,
       }
     )
   }
 
   const handleSubmit = (e) => {
-    e.preventdefault()
-    const response = postEmployee(employess)
-    let navigate = useNavigate();
-    response && navigate('/')
+    e.preventDefault()
+    const response = postEmployee(employee)
   }
 
   return (
@@ -55,11 +51,13 @@ const Register = () => {
               id="first_name"
               type="text"
               name='name'
-              value={employess.name}
+              value={employee.name}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Nombre"
               onChange={handleChange}
               required
+              pattern="[A-Z]+"
+              maxLength="20"
             />
           </div>
           {/* Otros nombres */}
@@ -74,9 +72,11 @@ const Register = () => {
               id="others"
               type="text"
               name='other_names'
-              value={employess.other_names}
+              value={employee.other_names}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Otros Nombres"
+              maxLength="50"
+              pattern="[A-Z]+"
               onChange={handleChange}
             />
           </div>
@@ -91,12 +91,14 @@ const Register = () => {
             <input
               type="text"
               id="surname"
+              maxLength="20"
               name='surname'
-              value={employess.surname}
+              value={employee.surname}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Apellido"
               onChange={handleChange}
               required
+              pattern="[A-Z ]+"
             />
           </div>
           {/* segundo apellido */}
@@ -111,9 +113,11 @@ const Register = () => {
               type="text"
               id="second_surname"
               name='second_surname'
-              value={employess.second_surname}
+              value={employee.second_surname}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Segundo Apellido"
+              maxLength="20"
+              pattern="[A-Z ]+"
               onChange={handleChange}
             />
           </div>
@@ -128,7 +132,7 @@ const Register = () => {
             <select
               id="countries"
               name='country'
-              value={employess.country}
+              value={employee.country}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               onChange={handleChange}
               required
@@ -149,7 +153,7 @@ const Register = () => {
             <select
               id="type_id"
               name='type_id'
-              value={employess.type_id}
+              value={employee.type_id}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               onChange={handleChange}
               required
@@ -174,11 +178,13 @@ const Register = () => {
             type="text"
             id="number_id"
             name='number_id'
-            value={employess.number_id}
+            value={employee.number_id}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="1000000105"
             onChange={handleChange}
             required
+            maxLength="20"
+            pattern="[A-Z0-9]+"
           />
         </div>
         {/* Fecha */}
@@ -208,7 +214,7 @@ const Register = () => {
               id='date_admission'
               datepicker='true'
               name='date_admission'
-              value={employess.date_admission}
+              value={employee.date_admission}
               type="date"
               className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               onChange={handleChange}
@@ -227,7 +233,7 @@ const Register = () => {
           <select
             id="area"
             name='area'
-            value={employess.area}
+            value={employee.area}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             onChange={handleChange}
             required

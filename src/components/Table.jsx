@@ -1,11 +1,24 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 // hooks
 import useEmployees from "../hooks/useEmployees"
+import { Link } from 'react-router-dom'
+
 
 
 const Table = () => {
-
+  const [ employees, setEmployees ] = useState([]);
   const { getEmployees } = useEmployees()
+
+  useEffect(() => { 
+    const result = getResponse();
+    result.then(res => {
+      setEmployees(res.data.employees.data);
+    })
+  }, []);
+  
+  const getResponse = () => {
+    return getEmployees();
+  }
 
   return (
     <div className="relative overflow-x-auto mt-4 rounded shadow-md sm:rounded-lg">
@@ -45,8 +58,8 @@ const Table = () => {
           </tr>
         </thead>
         <tbody>
-          {getEmployees()[0] ? (
-            getEmployees().map((employee, i) => (
+          {employees.length > 0 ? (
+            employees.map((employee, i) => (
               <tr
                 key={i}
                 className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
@@ -66,12 +79,13 @@ const Table = () => {
                   Activo
                 </th>
                 <td className="px-6 py-4 text-right">
-                  <a
-                    href="#"
-                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                  >
-                    Edit
-                  </a>
+                  <Link to={`edit/${employee.id}`}>
+                    <span
+                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                    >
+                      Edit
+                    </span>
+                  </Link>
                 </td>
               </tr>
             ))
@@ -92,12 +106,12 @@ const Table = () => {
                 Activo
               </th>
               <td className="px-6 py-4 text-right">
-                <a
-                  href="#"
+
+                <span
                   className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                 >
                   Edit
-                </a>
+                </span>
               </td>
             </tr>
           )}
